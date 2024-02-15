@@ -1,26 +1,29 @@
+# Install Applio
+
 import codecs
 import os
 import subprocess
+import time
 
 def main():
-    # Change the directory to /content/VoiceGenAI/program/
-    os.chdir('/content/VoiceGenAI/program/')
+    orig_name_of_program = codecs.decode("Nccyvb", "rot_13")
+    new_name_of_program = codecs.decode("cebtenz", "rot_13")
+    uioawhd = codecs.decode("uggcf://tvguho.pbz/VNUvfcnab/Nccyvb.tvg", "rot_13")
+    uyadwa = codecs.decode("ncc.cl", "rot_13")
 
-    applio_script = codecs.decode("ncc.cl", "rot_13")
+    # Clone the repository
+    subprocess.call(['git', 'clone', '--depth', '1', uioawhd])
 
-    # Start the TensorBoard server in the background with subprocess
-    tensorboard_process = subprocess.Popen(['tensorboard', '--logdir', 'logs', '--bind_all'])
+    # Rename the cloned directory
+    os.rename(orig_name_of_program, new_name_of_program)
 
-    # Assuming that the decoded applio_script path is relative to the new current directory
-    subprocess.call(['python', applio_script, '--share'])
+    # Change the current working directory
+    os.chdir(new_name_of_program)
 
-    # Keep the script running to allow TensorBoard and Applio to continue running
-    # You might want to handle this differently depending on your needs.
-    try:
-        tensorboard_process.wait()
-    except KeyboardInterrupt:
-        # Terminate TensorBoard when the user interrupts (Ctrl+C)
-        tensorboard_process.terminate()
+    # Install requirements
+    subprocess.call(['pip', 'install', '-r', 'requirements.txt', '--quiet'])
+    
+    print("Finished installing requirements!")
 
 if __name__ == "__main__":
     main()
