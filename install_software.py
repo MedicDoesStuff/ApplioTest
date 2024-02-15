@@ -6,7 +6,7 @@ import subprocess
 import time
 
 def main():
-    orig_name_of_program = codecs.decode("IbvprTraNV", "rot_13")
+    orig_name_of_program = codecs.decode("Applio", "rot_13")
     new_name_of_program = codecs.decode("cebtenz", "rot_13")
     uioawhd = codecs.decode("uggcf://tvguho.pbz/VNUvfcnab/Nccyvb.tvg", "rot_13")
     uyadwa = codecs.decode("ncc.cl", "rot_13")
