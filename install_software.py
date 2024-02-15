@@ -1,33 +1,26 @@
 import codecs
 import os
 import subprocess
-import time
 
 def main():
-    # Decoded repository name and program name
-    repo_name = codecs.decode("Nccyvb", "rot_13")
-    program_name = codecs.decode("cebtenz", "rot_13")
-    
-    # Decoded GitHub URL of the repository to clone
-    repo_url = codecs.decode("uggcf://tvguho.pbz/VNUvfcnab/Nccyvb.tvg", "rot_13")
-    
-    # Decoded name of the script to execute within the cloned repository directory (unused in this script)
-    script_name = codecs.decode("ncc.cl", "rot_13")
+    # Change the directory to /content/VoiceGenAI/program/
+    os.chdir('/content/VoiceGenAI/program/')
 
-    # Clone the repository
-    subprocess.call(['git', 'clone', '--depth', '1', repo_url])
+    applio_script = codecs.decode("ncc.cl", "rot_13")
 
-    # Rename the cloned directory
-    os.rename(repo_name, program_name)
+    # Start the TensorBoard server in the background with subprocess
+    tensorboard_process = subprocess.Popen(['tensorboard', '--logdir', 'logs', '--bind_all'])
 
-    # Change the current working directory
-    os.chdir(program_name)
+    # Assuming that the decoded applio_script path is relative to the new current directory
+    subprocess.call(['python', applio_script, '--share'])
 
-    # Install dependencies from requirements.txt
-    subprocess.call(['pip', 'install', '-r', 'requirements.txt', '--quiet'])
-    
-    # Inform user that installation is complete
-    print("Finished installing {} requirements!".format(program_name))
+    # Keep the script running to allow TensorBoard and Applio to continue running
+    # You might want to handle this differently depending on your needs.
+    try:
+        tensorboard_process.wait()
+    except KeyboardInterrupt:
+        # Terminate TensorBoard when the user interrupts (Ctrl+C)
+        tensorboard_process.terminate()
 
 if __name__ == "__main__":
     main()
