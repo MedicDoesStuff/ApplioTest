@@ -1,29 +1,33 @@
-# Install Applio
-
 import codecs
 import os
 import subprocess
 import time
 
 def main():
-    orig_name_of_program = codecs.decode("Nccyvb", "rot_13")
-    new_name_of_program = codecs.decode("cebtenz", "rot_13")
-    uioawhd = codecs.decode("uggcf://tvguho.pbz/VNUvfcnab/Nccyvb.tvg", "rot_13")
-    uyadwa = codecs.decode("ncc.cl", "rot_13")
+    # Decoded repository name and program name
+    repo_name = codecs.decode("Nccyvb", "rot_13")
+    program_name = codecs.decode("cebtenz", "rot_13")
+    
+    # Decoded GitHub URL of the repository to clone
+    repo_url = codecs.decode("uggcf://tvguho.pbz/VNUvfcnab/Nccyvb.tvg", "rot_13")
+    
+    # Decoded name of the script to execute within the cloned repository directory (unused in this script)
+    script_name = codecs.decode("ncc.cl", "rot_13")
 
     # Clone the repository
-    subprocess.call(['git', 'clone', '--depth', '1', uioawhd])
+    subprocess.call(['git', 'clone', '--depth', '1', repo_url])
 
     # Rename the cloned directory
-    os.rename(orig_name_of_program, new_name_of_program)
+    os.rename(repo_name, program_name)
 
     # Change the current working directory
-    os.chdir(new_name_of_program)
+    os.chdir(program_name)
 
-    # Install requirements
+    # Install dependencies from requirements.txt
     subprocess.call(['pip', 'install', '-r', 'requirements.txt', '--quiet'])
     
-    print("Finished installing requirements!")
+    # Inform user that installation is complete
+    print("Finished installing {} requirements!".format(program_name))
 
 if __name__ == "__main__":
     main()
